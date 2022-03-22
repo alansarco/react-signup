@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { AiOutlineMail, AiFillLock } from 'react-icons/ai';
 import { MdPerson, MdPersonAddAlt1 } from 'react-icons/md';
 import styled from 'styled-components';
@@ -125,32 +125,32 @@ export default function ContactForm() {
     if (Object.keys(formErrors).length === 0 && isSubmit) {
       console.log(formValues);
     }
-  }, [formErrors]);
+  });
   const validation = (values) => {
     const errors = {};
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
     if (!formValues.name) {
-      errors.name = 'Name is required';
+      errors.name = 'Name is required!';
     }
     if (!formValues.username) {
-      errors.username = 'Username is required';
+      errors.username = 'Username is required!';
     }
     if (!formValues.email) {
-      errors.email = 'Email is required';
+      errors.email = 'Email is required!';
     } else if (!regex.test(values.email)) {
       errors.email = 'Invalid Email format!';
     }
     if (!formValues.password) {
-      errors.password = 'Password is required';
+      errors.password = 'Password is required!';
     } else if (values.password.length < 6) {
       errors.password = 'Password must not less than 6 characters.';
     } else if (values.password.length > 12) {
       errors.password = 'Password must not exceed than 12 characters.';
     }
     if (!formValues.confirmpass) {
-      errors.confirmpass = 'Please confirm your password';
+      errors.confirmpass = 'Please confirm your password!';
     } else if (formValues.confirmpass !== formValues.password) {
-      errors.confirmpass = 'Password does not match.';
+      errors.confirmpass = 'Password does not match!';
     }
 
     return errors;
@@ -161,7 +161,6 @@ export default function ContactForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmpass, setConfirmPass] = useState(''); */
-  const form = useRef();
   const handleSubmit = (e) => {
     e.preventDefault();
     setFormErrors(validation(formValues));
@@ -175,7 +174,7 @@ export default function ContactForm() {
           REGISTER
           <h5>Be part of our lucky customers!</h5>
         </SectionTitle>
-        <form ref={form} onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit}>
           <div className="form-group">
             <label htmlFor="name">
               Name
