@@ -125,7 +125,7 @@ export default function ContactForm() {
   });
   const validation = (values) => {
     const errors = {};
-    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
+    const regex = /^\w+([/.-]?\w+)*@\w+([/.-]?\w+)*(\.\w{2,3})+$/;
     if (!formValues.name) {
       errors.name = 'Name is required!';
     }
