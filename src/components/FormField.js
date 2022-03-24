@@ -2,15 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { AiOutlineMail, AiFillLock } from 'react-icons/ai';
 import { MdPerson, MdPersonAddAlt1 } from 'react-icons/md';
 import styled from 'styled-components';
+import { ToastContainer, toast } from 'react-toastify';
 import themeList from './themeList';
 import SectionTitle from './SectionTitle';
+import 'react-toastify/dist/ReactToastify.css';
 
 const FormStyle = styled.div`
-  h2 {
-    margin: 0.5rem;
-    color: ${({ theme: { theme } }) =>
-      theme === themeList.light ? '#343966' : 'var(--orange)'};
-  }
   h5 {
     font-size: 1rem;
     margin-top: 0.5rem;
@@ -152,21 +149,25 @@ export default function ContactForm() {
     } else if (formValues.confirmpass !== formValues.password) {
       errors.confirmpass = 'Password does not match!';
     }
+    if (Object.keys(errors).length === 0) {
+      toast.success('Registered Successfully!');
+      setFormValues({
+        name: '',
+        username: '',
+        email: '',
+        password: '',
+        confirmpass: '',
+      });
+    }
 
     return errors;
   };
 
-  /* const [name, setName] = useState('');
-  const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmpass, setConfirmPass] = useState(''); */
   const handleSubmit = (e) => {
     e.preventDefault();
     setFormErrors(validation(formValues));
     setIsSubmit(true);
   };
-  const success = 'Registration Sucessful!';
   return (
     <>
       <FormStyle>
@@ -275,16 +276,10 @@ export default function ContactForm() {
               <p>{formErrors.confirmpass}</p>
             </label>
           </div>
-          {Object.keys(formErrors).length === 0 && isSubmit ? (
-            <div className="success">
-              <h2>{success}</h2>
-            </div>
-          ) : (
-            <h2> </h2>
-          )}
           <button type="submit">CREATE ACCOUNT</button>
         </form>
       </FormStyle>
+      <ToastContainer theme="dark" />
     </>
   );
 }
